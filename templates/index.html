@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenCycle - Waste Classification</title>
+</head>
+<body>
+    <h1>Upload your waste image for classification</h1>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        // JavaScript to handle file upload and display result
+        const form = document.querySelector('form');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.predicted_class) {
+                    resultDiv.innerHTML = `<h2>Prediction: ${data.predicted_class}</h2>`;
+                } else {
+                    resultDiv.innerHTML = `<h2>Error: ${data.message}</h2>`;
+                }
+            } catch (err) {
+                resultDiv.innerHTML = `<h2>Error uploading image</h2>`;
+            }
+        });
+    </script>
+</body>
+</html>
