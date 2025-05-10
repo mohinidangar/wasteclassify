@@ -21,6 +21,13 @@ The model used is a **fine-tuned MobileNetV2**, trained on a custom dataset of l
 
 ---
 
+---
+## Adavantages
+
+1. Automated Waste Classification.
+2. Eco-friendly Impact
+
+---
 ## Requirements
 
 To run this project, install the following dependencies:
